@@ -8,57 +8,53 @@
 typedef struct
 {
   int *elems;
-  int logicalLen;
-  int allocLen;
+  int alloclen;
+  int logicallen;
 } Stack;
 
 void StackNew(Stack *);
 void StackPush(Stack *, int);
 int  StackPop(Stack *);
 void StackDispose(Stack *);
-
 bool isFull(Stack *);
 
 void StackNew(Stack *s)
 {
-  s->allocLen = 0;
-  s->logicalLen = DEFAULTSIZE;
-  s->elems = malloc(s->logicalLen * sizeof(int));
+  s->logicallen = 0;
+  s->alloclen = DEFAULTSIZE;
+  s->elems = malloc(s->alloclen * sizeof(int));
   assert(s->elems != NULL);
 }
 
 void StackPush(Stack *s, int value)
 {
   if (isFull(s)) {
-    s->logicalLen += DEFAULTSIZE;
-    s->elems = realloc(s->elems, (s->logicalLen * sizeof(int)));
-    // int size = DEFAULTSIZE * sizeof(int) + s->logicalLen;
-    // s->logicalLen += DEFAULTSIZE;
-    // s->elems = realloc(s->elems, size);
+    s->alloclen += DEFAULTSIZE;
+    s->elems = realloc(s->elems, (s->alloclen * sizeof(int)));
   } 
 
   assert(s->elems != NULL);
-  s->elems[s->allocLen] = value;
-  s->allocLen += 1;
+  s->elems[s->logicallen] = value;
+  s->logicallen += 1;
 }
 
 int StackPop(Stack *s)
 {
-  assert(s->allocLen > 0);
-  s->allocLen -= 1;
-  return s->elems[s->allocLen];
+  assert(s->logicallen > 0);
+  s->logicallen -= 1;
+  return s->elems[s->logicallen];
 }
 
 void StackDispose(Stack *s)
 {
-  s->allocLen = 0;
-  s->logicalLen = 0;
+  s->logicallen = 0;
+  s->alloclen = 0;
   free(s->elems);
 }
 
 bool isFull(Stack *s)
 {
-  if (s->allocLen == s->logicalLen) {
+  if (s->logicallen == s->alloclen) {
     return true;
   }
 

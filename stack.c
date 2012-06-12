@@ -5,31 +5,28 @@
 
 int main()
 {
-
-  // last in first out
-  // filo
+  // LIFO
   Stack stack;
   StackNew(&stack);
 
-  //printf("Logical:    %d\n", stack.logicalLen);
-  //printf("Allocated:  %d\n", stack.allocLen);
+  char *dataFormat = "%7d%2s%8d\n";
+
   puts("\nLogical | Allocated");
   puts("--------|----------");
-  printf("%4d%5s%6d\n", stack.logicalLen, "|", stack.allocLen);
+  printf(dataFormat, stack.logicallen, "|", stack.alloclen);
 
   int i;
   for (i = 0; i < 50000; i++) {
     StackPush(&stack, i);
   }
 
-  printf("%4d%5s%6d\n", stack.logicalLen, "|", stack.allocLen);
+  printf(dataFormat, stack.logicallen, "|", stack.alloclen);
 
   for (i = 0; i < 50000; i++) {
-    //printf("Last popped: %d\n", StackPop(&stack));
     StackPop(&stack);
-  } //putchar('\n');
+  }
 
-  printf("%4d%5s%6d\n", stack.logicalLen, "|", stack.allocLen);
+  printf(dataFormat, stack.logicallen, "|", stack.alloclen);
 
   // free the memory
   puts("\nAbout to dispose\n");
@@ -37,8 +34,8 @@ int main()
 
   puts("Logical | Allocated");
   puts("--------|----------");
-  printf("%4d%5s%6d\n", stack.logicalLen, "|", stack.allocLen);
-  puts("");
+  printf(dataFormat, stack.logicallen, "|", stack.alloclen);
+  printf("\n");
 
   return 0;
 }
